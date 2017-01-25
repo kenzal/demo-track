@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Tmdb\Repository\MovieRepository;
 
 class LocationsController extends Controller
 {
+	protected $tmdb;
+
+	public function __construct(MovieRepository $tmdbClient)
+	{
+		$this->tmdb = $tmdbClient;
+	}
+
     public function index() 
     {
 
@@ -20,6 +28,10 @@ class LocationsController extends Controller
     	if(Auth::user() <> $location->user)
     	{
     		return back();
+    	}
+    	$tmdb = $this->tmdb;
+    	foreach($location->movies as $movie) {
+    		$movie->setTmdb($tmdb->load($movie->tmdb_id));
     	}
     	return view('locations.show', compact('location'));
     }
