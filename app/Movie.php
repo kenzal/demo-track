@@ -39,4 +39,9 @@ class Movie extends Model
     	$this->tmdbObject = $data;
     	return $this;
     }
+    public function setTmdbId(int $tmdbId)
+    {
+        $this->tmdb_id = $tmdbId;
+        return $this;
+    }
 }

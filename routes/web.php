@@ -25,3 +25,4 @@ Route::get('/location/{location}', 'LocationsController@show');
 Route::post('/locations', 'LocationsController@store');
 
 Route::get('/movies/search', 'MovieController@search');
+Route::post('/movies/add', 'MovieController@add');
